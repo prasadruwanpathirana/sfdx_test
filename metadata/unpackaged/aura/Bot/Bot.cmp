@@ -15,9 +15,7 @@
                     </lightning:layoutitem>
                     <div>
                         <div>
-                            <div>
-                                
-                            </div>
+                          
                         </div>
                     </div>
                     <lightning:layoutitem padding="around-small" flexibility="grow">
