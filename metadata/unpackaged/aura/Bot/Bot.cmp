@@ -14,7 +14,9 @@
                         <lightning:icon iconName="{#message.author == 'Me' ? 'standard:avatar_loading' : 'standard:custom_notification'}" size="small"/>
                     </lightning:layoutitem>
                     <div>
-                        
+                        <div>
+                            
+                        </div>
                     </div>
                     <lightning:layoutitem padding="around-small" flexibility="grow">
                         <p><strong>{#message.author}</strong></p>
