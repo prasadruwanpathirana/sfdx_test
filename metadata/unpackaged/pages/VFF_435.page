@@ -1,0 +1,5 @@
+<apex:page standardcontroller="Opportunity" >
+  <apex:includeScript value="https://code.jquery.com/jquery-2.1.0.js"/>
+  <apex:includeScript value="https://vffiddle.herokuapp.com/resource/js/{! NULLVALUE($CurrentPage.parameters.jsid, '435')}"/>
+  <apex:stylesheet value="https://vffiddle.herokuapp.com/resource/css/{! NULLVALUE($CurrentPage.parameters.jsid, '435')}"/>
+</apex:page>

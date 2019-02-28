@@ -1,0 +1,24 @@
+<apex:page standardController="Contact" extensions="Controller_trySomething">
+    <apex:form >
+    
+        <apex:outputText rendered="false" value="{!Contact.AccountId}{!Contact.OwnerId}"/>
+        
+        My Contact's First Name is: <apex:inputField value="{!Contact.FirstName}"/>
+        <br/><br/>
+        My Contact's Account Name is <apex:inputField value="{!Account.Name}"/>
+        <br/><br/>
+        My Contact's Owner First Name is: <apex:inputField value="{!User.FirstName}"/>
+        <br/><br/>
+        <apex:CommandButton value="Save Contact" action="{!cancel}"/>
+        <apex:CommandButton value="Save Account" action="{!myAccountController.save}"/>
+        <apex:CommandButton value="Save User" action="{!myUserController.save}"/>
+        <br/>
+        <br/>
+        <apex:CommandButton value="Save All" action="{!doSaveAll}"/>
+        <br/>
+        <br/>
+        <apex:CommandButton value="Cancel to Contact" action="{!cancel}"/>
+        <apex:CommandButton value="Cancel to Account" action="{!myAccountController.cancel}"/>
+        <apex:CommandButton value="Cancel to User" action="{!myUserController.cancel}"/>
+    </apex:form>
+</apex:page>

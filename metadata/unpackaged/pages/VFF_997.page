@@ -1,0 +1,5 @@
+<apex:page controller="VFF_997">
+  <apex:includeScript value="https://vffiddle.herokuapp.com/resource/none"/>
+  <apex:includeScript value="https://vffiddle.herokuapp.com/resource/js/{! NULLVALUE($CurrentPage.parameters.jsid, '997')}"/>
+  <apex:stylesheet value="https://vffiddle.herokuapp.com/resource/css/{! NULLVALUE($CurrentPage.parameters.jsid, '997')}"/>
+</apex:page>

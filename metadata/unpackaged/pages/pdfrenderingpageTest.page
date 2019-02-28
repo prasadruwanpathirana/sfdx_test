@@ -1,0 +1,13 @@
+<apex:page standardStylesheets="false" showHeader="false" sidebar="false">
+
+<html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+
+<svg aria-hidden="true" class="slds-icon slds-icon--medium ">
+    <use xlink:href="{!URLFOR($Resource.MynnSVGImages, '01/1.svg')}"></use>
+</svg>
+        
+
+
+</html>
+
+</apex:page>

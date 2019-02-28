@@ -1,0 +1,371 @@
+<apex:component >
+  <script>
+    var $j = jQuery.noConflict();
+     
+	 $j(document).ready(function()
+	  			{
+	  				Todo.regHandlers();
+	  				Todo.loadGroups();
+	  			});
+    
+    function Todo()
+    {
+    }
+
+	/*
+	 * Register event handlers
+	 */
+	Todo.regHandlers = function ()
+	{
+	    $j("#main").on('pageshow', function(event, ui) 
+	      						  {
+                                      Todo.loadGroups();
+                                  });
+
+	    $j("#refreshbutton").click(function(event) 
+	      						  {
+                                      Todo.loadGroups();
+                                  });
+                                  
+	    $j("#savebutton").click(function(event) 
+	      						  {
+                                      Todo.createTask();
+                                  });
+                                  
+	    $j("#groupsavebutton").click(function(event) 
+	      						  {
+                                      Todo.createGroup();
+                                  });
+	}
+	    
+	/*
+	 * Load and render all task groups
+	 */
+	Todo.loadGroups = function()
+	{
+        $j.mobile.loading( 'show', { theme: "a", text: "retrieving groups", textVisible: true });
+		TODOController.getGroups(Todo.showGroups, {escape:true});
+	}
+	
+    /*
+	 * Callback function to handle load of groups from SFDC server
+	 */
+    Todo.showGroups = function (records, event)
+    {
+        if (event.status) 
+        {
+	        $j("#groups").html('');
+            $j.each(records,
+                    function()
+                    {
+        				var str='<li><a href="#" onclick="Todo.loadTasks(\'' + this.Id + '\', \'' + this.Name + '\');">' + 
+        						this.Name + '<span class="ui-li-count">' + this.Open_Task_Count__c + '</span></a></li> '; 
+				        $j(str).appendTo("#groups");
+				    });
+				 
+        	var str='<li><a href="#" onclick="Todo.setupNewGroup();">Add new ...</a></li>';
+        	$j(str).appendTo("#groups"); 
+        	$j("#groups").listview('refresh');
+        }
+        else
+        {
+        	Todo.error(event.message);
+        }
+        $j.mobile.hidePageLoadingMsg();
+    }
+
+	/*
+	 * Load all tasks associated with a group
+	 */
+    Todo.loadTasks = function(groupId, groupName)
+    {
+	    $j('#tasks').jqmData('groupName', groupName);
+	    $j('#tasks').jqmData('groupId', groupId);
+	    $j('#groupheader').text(groupName);
+        $j.mobile.loading( 'show', { theme: "a", text: "retrieving tasks", textVisible: true });
+        TODOController.getTasks(groupId, Todo.showTasks, {escape:true});
+    }
+    
+	/*
+	 * Callback function to handle load of tasks from a particular group
+	 */
+    Todo.showTasks = function (records, event)
+    {
+        if (event.status) 
+        {
+	        $j("#tasklist").html('');
+	        $j("#completelist").html('');
+            $j.each(records,
+                    function()
+                    {
+                    	var theDate=new Date(this.Due_Date__c);
+                        
+        				var str='<li><a href="#" onclick="Todo.loadTask(\'' + this.Id + '\');">' + this.Name + '<span class="ui-li-count">' + 
+        							theDate.getDate() + '.' + (theDate.getMonth()+1) + '.' + theDate.getFullYear() +
+        							'</span></a></li> '; 
+        				if (this.Complete__c)
+        				{
+				        	$j(str).appendTo("#completelist");
+				        }
+				        else
+				        {
+				        	$j(str).appendTo("#tasklist");
+				        }
+				    });
+				 
+        	var str='<li><a href="#" onclick="Todo.setupNew();">Add new ...</a></li>'; 
+			$j(str).appendTo("#tasklist");
+			if ($j("#tasklist").hasClass('ui-listview')) 
+			{
+			    $j("#tasklist").listview('refresh');
+    		} 
+    		else 
+    		{
+		        $j("#tasklist").trigger('create');
+	    	}
+	    	
+			if ($j("#completelist").hasClass('ui-listview')) 
+			{
+			    $j("#completelist").listview('refresh');
+    		} 
+    		else 
+    		{
+		        $j("#completelist").trigger('create');
+	    	}
+        }
+        else
+        {
+        	Todo.error(event.message);
+        }
+        $j.mobile.changePage('#tasks');
+        $j.mobile.hidePageLoadingMsg();
+    }
+
+	/*
+	 * Load and display full details of a task
+	 */
+    Todo.loadTask = function(taskId)
+    {
+        $j.mobile.loading( 'show', { theme: "a", text: "retrieving task", textVisible: true });
+        TODOController.getTask(taskId, Todo.showTask, {escape:true});
+    }
+    
+	/*
+	 * Callback function to handle full task details loaded from SFDC
+	 */
+    Todo.showTask = function (records, event)
+    {
+        if (event.status) 
+        {
+        	var task=records[0];
+            var theDate=new Date(task.Due_Date__c);
+                        
+			$j("#taskgroup").text(task.Group__r.Name);
+			$j("#taskname").text(task.Name);
+			$j("#taskdue").text(theDate.getDate() + '.' + (theDate.getMonth()+1) + '.' + theDate.getFullYear());
+			$j("#taskstatus").html('<img src="' + task.Status_Image__c + '"/>');
+			
+			$j("#taskdesc").text(task.Description__c);
+				        
+			if (task.Complete__c)
+			{
+			    var compDate=new Date(task.Completed_Date__c);
+			
+				$j("#completespan").hide();
+				$j("#taskcomplete").text(compDate.getDate() + '.' + (compDate.getMonth()+1) + '.' + compDate.getFullYear());
+				$j("#taskcomplete").show();
+				$j("#taskcomptitle").show();
+			}
+			else
+			{
+				$j("#taskcomptitle").hide();
+				$j("#taskcomplete").hide();
+				$j("#taskcomplete").text('');
+				$j("#completebutton").on('click', function() { Todo.completeTask(task.Id); });
+				$j("#completespan").show();
+				
+			}
+        }
+        else
+        {
+        	Todo.error(event.message);
+        }
+        $j.mobile.changePage('#task');
+        $j.mobile.hidePageLoadingMsg();
+    }
+    
+	/*
+	 * Complete a task
+	 */
+    Todo.completeTask = function(taskId)
+    {
+        $j.mobile.loading( 'show', { theme: "a", text: "completing task", textVisible: true });
+        TODOController.completeTask(taskId, new Date().toUTCString(), Todo.taskComplete, {escape:true});
+    }
+    
+	/*
+	 * Callback function to handle completion of task on SFDC
+	 */
+    Todo.taskComplete = function (result, event)
+    {
+        if (event.status) 
+        {
+        	if (result=='success')
+        	{
+        		Todo.loadTasks($j('#tasks').jqmData('groupId'), $j('#tasks').jqmData('groupName'));
+        	}
+        	else
+        	{
+	        	Todo.error('Could not complete task: ' + result);
+        	}
+        }
+        else
+        {
+        	Todo.error(event.message);
+        }
+    }
+    
+	/*
+	 * Set up the 'new task' page - blank existing entries and set the date picker elements to today
+	 */
+    Todo.setupNew = function()
+    {
+    	$j('#newgroup').text($j('#tasks').jqmData('groupName'));
+    	
+    	$j("#newname").val('');
+    	
+    	var theDate=new Date();
+    	
+    	// initialise the day
+    	$j("#newday").val(theDate.getDate()).attr('selected', true);
+    	$j("#newday").selectmenu();
+    	$j("#newday").selectmenu("refresh");
+    	
+    	// initialise the month
+    	$j("#newmonth").val(theDate.getMonth()).attr('selected', true);
+    	$j("#newmonth").selectmenu();
+    	$j("#newmonth").selectmenu("refresh");
+    	
+    	// initialise the year
+    	$j("#newyear").val(theDate.getFullYear()).attr('selected', true);
+    	$j("#newyear").selectmenu();
+    	$j("#newyear").selectmenu("refresh");
+    	
+    	$j("#newdesc").val('');
+    	
+    	$j.mobile.changePage('#newtask');
+    }
+    
+	/*
+	 * Create a new task
+	 */
+    Todo.createTask = function()
+    {
+        $j.mobile.loading( 'show', { theme: "a", text: "creating task", textVisible: true });
+        TODOController.createTask($j('#tasks').jqmData('groupName'),
+        						  $j("#newname").val(),
+        						  $j("#newday").val(),
+        						  $j("#newmonth").val(),
+        						  $j("#newyear").val(),
+        						  $j("#newdesc").val(), 
+        						  Todo.taskCreate, {escape:true});
+    }
+    
+	/*
+	 * Callback function to handle creation of task on SFDC
+	 */
+    Todo.taskCreate = function (result, event)
+    {
+        if (event.status) 
+        {
+        	if (result=='success')
+        	{
+        		Todo.loadTasks($j('#tasks').jqmData('groupId'), $j('#tasks').jqmData('groupName'));
+        	}
+        	else
+        	{
+        		Todo.error('Could not create task: ' + result);
+        	}
+        }
+        else
+        {
+        	Todo.error(event.message);
+        }
+    }
+    
+    /*
+	 * Set up the new group page - clear the existing inputs
+	 */
+    Todo.setupNewGroup = function()
+    {
+    	$j('#newgroupname').val('');
+    	$j('#newgroupdesc').val('');
+    	
+    	$j.mobile.changePage('#newgroup');
+    }
+    
+	/*
+	 * Create a new group
+	 */
+    Todo.createGroup = function()
+    {
+        $j.mobile.loading( 'show', { theme: "a", text: "creating group", textVisible: true });
+        TODOController.createGroup($j("#newgroupname").val(),
+        						   $j("#newgroupdesc").val(), 
+        						   Todo.groupCreate, {escape:true});
+    }
+    
+	/*
+	 * Callback function to handle creation of a new group on SFDC
+	 */
+    Todo.groupCreate = function (result, event)
+    {
+        if (event.status) 
+        {
+        	if (result=='success')
+        	{
+        		$j.mobile.changePage('#main', {transition: "slidedown", role: "dialog"});
+        	}
+        	else
+        	{
+        		Todo.error('Could not create group: ' + result);
+        	}
+        }
+        else
+        {
+        	Todo.error(event.message);
+        }
+    }
+    
+	/*
+	 * Callback function to display an error message via a dialog
+	 */
+	Todo.error=function (message)
+	{
+    	$j("#errormsg").html(message);
+    	$j.mobile.changePage('#error', {transition: "slidedown", role: "dialog"});
+        $j.mobile.hidePageLoadingMsg();
+	}
+	
+	Todo.getToday=function () 
+	{
+    	var now = new Date()
+
+    	var year = now.getFullYear();
+    	var month = now.getMonth() + 1;
+    	var day = now.getDate();
+
+    	function padStr(i) 
+    	{
+        	return (i < 10) ? "0" + i : "" + i;
+    	}
+
+    	var dateStr = padStr(year) + '-' + 
+        	          padStr(month) + '-' + 
+            	      padStr(day);
+	
+    	return dateStr;
+    }
+	
+  </script>
+</apex:component>

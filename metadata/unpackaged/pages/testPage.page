@@ -1,0 +1,52 @@
+<apex:page controller="callOpp" showChat="false" showHeader="false" sidebar="false" >
+  <!--Begin Default Content REMOVE THIS -->
+  
+  <head>
+  
+  <script type="text/javascript">
+  alert("test");
+  
+  function testFunction(){
+  
+  alert('name');
+  
+  }
+  
+  
+  </script>
+  </head>
+  <body>
+  <h1>Congratulations</h1>
+  This is your new Page
+  <!-- End Default Content REMOVE THIS -->
+  
+  
+  <input type="button" onclick="testFunction()" value="test" name="test" />
+  
+  <apex:outputField value="{!Opp.name}" />
+  
+  <apex:dataTable value="{!accounts}" var="account" id="theTable" rowClasses="odd,even"
+
+                        styleClass="tableClass">
+
+        <apex:facet name="caption">table caption</apex:facet>
+
+        <apex:facet name="header">table header</apex:facet>
+
+        <apex:facet name="footer">table footer</apex:facet>
+
+        <apex:column >
+
+                <apex:facet name="header">Name</apex:facet>
+
+            <apex:facet name="footer">column footer</apex:facet>
+
+            <apex:outputText value="{!account.name}"/>
+
+        </apex:column>
+
+      
+
+    </apex:dataTable>
+  </body>
+</apex:page>

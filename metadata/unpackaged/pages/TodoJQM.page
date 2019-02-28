@@ -1,0 +1,240 @@
+<apex:page docType="html-5.0" sidebar="false" showHeader="false" standardStyleSheets="false" controller="TODOController">
+<html> 
+  <head> 
+    <title>Todo App</title> 
+    <apex:includeScript value="{!URLFOR($Resource.JQuery_1_9_1)}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.JQM_1_3_1, 'jquery.mobile-1.3.1.min.css')}" />
+    <apex:includeScript value="{!URLFOR($Resource.JQM_1_3_1, 'jquery.mobile-1.3.1.min.js')}" />
+    <c:TodoCSS />
+    <c:TodoJS />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" /> 
+  </head> 
+  
+  <body>
+   
+    
+    <div data-role="page" id="main">
+      <div data-role="header">
+        <img src="{!URLFOR($Resource.BGLogo)}" class="headerlogo" alt="BrightGen Logo" />
+        <h1>Task Groups</h1>
+      </div> <!--  /header -->
+      <div data-role="content">
+        <ul id="groups" data-role="listview" data-filter="true" data-filter-placeholder="Search groups..." data-inset="true">
+        </ul>
+      </div> <!-- /content -->
+      <div data-role="footer" data-position="fixed">
+        <a href="#mainpanel" data-icon="about" >About</a>
+        <a id="refreshbutton" style="float: right" href="#" data-role="button" data-icon="refresh">Refresh</a>
+      </div>
+      <div data-role="panel" id="mainpanel">
+        <h3>About</h3>
+        <p>Welcome to the BrightGen todo list demo application.</p>
+        <p>The number displayed is the count of open tasks.</p>
+        <p>Click on a group name to view the tasks. You can add a new task
+           via the 'Add New ...' button.</p>
+        <a href="#main" data-role="button" data-rel="close">Close</a>
+      </div><!-- /panel -->
+    </div> <!-- /page -->
+
+
+    <div data-role="page" id="tasks">
+      <div data-role="header">
+        <img src="{!URLFOR($Resource.BGLogo)}" class="headerlogo" alt="BrightGen Logo" />
+        <h1 id="groupheader"></h1>
+        <a href="#main" class="ui-btn-right" data-icon="arrow-l">Back</a>
+      </div> <!--  /header -->
+      <div data-role="content">
+        <p id="groupdesc"></p>
+        <h3>Open</h3>
+        <ul id="tasklist" data-role="listview" data-inset="true">
+        </ul>
+        <h3>Completed</h3>
+        <ul id="completelist" data-role="listview" data-inset="true">
+        </ul>
+      </div> <!-- /content -->
+      <div data-role="footer" data-position="fixed">
+        <a href="#taskspanel" data-icon="about" >About</a>
+      </div>
+      <div data-role="panel" id="taskspanel">
+        <h3>About</h3>
+        <p>This screen shows the open and closed tasks for a group.</p>
+        <p>The due date of the task is displayed on each button.</p>
+        <p>Click on a task to view details.  You can add a new task
+           via the 'Add New ...' button.</p>
+        <a href="#tasks" data-role="button" data-rel="close">Close</a>
+      </div><!-- /panel -->
+    </div> <!-- /page -->
+
+
+    <div data-role="page" id="task">
+      <div data-role="header">
+        <img src="{!URLFOR($Resource.BGLogo)}" class="headerlogo" alt="BrightGen Logo" />
+        <h1>Task</h1>
+        <a href="#tasks" class="ui-btn-right" data-icon="arrow-l">Back</a>
+      </div> <!--  /header -->
+      <div data-role="content">
+        <div class="ui-grid-a">
+          <div class="ui-block-a" style="font-weight:bold;">Group:</div>
+          <div class="ui-block-b" id="taskgroup"></div>
+          <div class="ui-block-a" style="font-weight:bold;">Task:</div>
+          <div class="ui-block-b" id="taskname"></div>
+          <div class="ui-block-a" style="font-weight:bold;">Status:</div>
+          <div class="ui-block-b" id="taskstatus"></div>
+          <div class="ui-block-a" style="font-weight:bold;">Due:</div>
+          <div class="ui-block-b" id="taskdue"></div>
+          <div class="ui-block-a" id="taskcomptitle" style="font-weight:bold;">Completed:</div>
+          <div class="ui-block-b" id="taskcomplete"></div>
+        </div>
+        <br/>
+        <div class="ui-grid-solo">
+          <div class="ui-block-a" style="font-weight:bold;">Description</div>
+        </div>
+        <div class="ui-grid-solo">
+          <div class="ui-block-a" id="taskdesc">:</div>
+        </div>
+        <br/>
+        <hr/>
+        <span id="completespan">
+          <a id="completebutton" href="#" data-role="button">Complete</a>
+        </span>
+      </div> <!-- /content -->
+      <div data-role="footer" data-position="fixed">
+        <a href="#taskspanel" data-icon="about" >About</a>
+      </div>
+      <div data-role="panel" id="taskspanel">
+        <h3>About</h3>
+        <p>This screen shows the details for a task.  Click on the 'Complete' button
+           (if present) to complete a task.</p>
+        <a href="#tasks" data-role="button" data-rel="close">Close</a>
+      </div><!-- /panel -->
+    </div> <!-- /page -->
+
+    <!-- ------------------------------------------- -->
+    <!--                New task page                -->
+    <!-- ------------------------------------------- -->
+
+    <div data-role="page" id="newtask">
+      <div data-role="header">
+        <img src="{!URLFOR($Resource.BGLogo)}" class="headerlogo" alt="BrightGen Logo" />
+        <h1>New Task</h1>
+        <a href="#tasks" class="ui-btn-right" data-icon="arrow-l">Back</a>
+      </div> <!--  /header -->
+      <div data-role="content">
+          <label for="newgroup" style="font-weight:bold">Group</label>
+          <!-- <input type="text" name="text-basic" id="newgroup" value="" placeholder="todo" disabled="true"/> -->
+          <p id="newgroup"></p>
+        
+          <label for="newname" style="font-weight:bold">Name</label>
+          <input type="text" name="text-basic" id="newname" value=""/>
+        
+          <label for="datecontainer" style="font-weight:bold">Due</label>   <br/>        
+          <div id="datecontainer" data-role="controlgroup" data-type="horizontal">
+          <div class="ui-btn ui-btn-inline">
+            <select name="select-day-mini" id="newday" data-mini="true" data-inline="true">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              <option>6</option>
+              <option>7</option>
+              <option>8</option>
+              <option>9</option>
+              <option>10</option>
+              <option>11</option>
+              <option>12</option>
+              <option>13</option>
+              <option>14</option>
+              <option>15</option>
+              <option>16</option>
+              <option>17</option>
+              <option>18</option>
+              <option>19</option>
+              <option>20</option>
+              <option>21</option>
+              <option>22</option>
+              <option>23</option>
+              <option>24</option>
+              <option>25</option>
+              <option>26</option>
+              <option>27</option>
+              <option>28</option>
+              <option>29</option>
+              <option>30</option>
+              <option>31</option>
+            </select>
+          </div>
+          <div class="ui-btn ui-btn-inline">
+            <select name="select-month-mini" id="newmonth" data-mini="true" data-inline="true">
+              <option value="0">January</option>
+              <option value="1">Feburary</option>
+              <option value="2">March</option>
+              <option value="3">April</option>
+              <option value="4">May</option>
+              <option value="5">June</option>
+              <option value="6">July</option>
+              <option value="7">August</option>
+              <option value="8">September</option>
+              <option value="9">October</option>
+              <option value="10">November</option>
+              <option value="11">December</option>
+            </select>
+          </div>
+          <div class="ui-btn ui-btn-inline">
+            <select name="select-month-mini" id="newyear" data-mini="true" data-inline="true">
+              <option>2013</option>
+              <option>2014</option>
+              <option>2015</option>
+              <option>2016</option>
+            </select>
+          </div>
+        </div>
+        <label style="font-weight:bold">Description</label>
+        <textArea id="newdesc"></textArea>
+        <br/>
+        <hr/>
+        <a id="savebutton" href="#" data-role="button">Save</a>
+      </div> <!-- /content -->
+    </div> <!-- /page -->
+
+    <!-- ------------------------------------------- -->
+    <!--               New group page                -->
+    <!-- ------------------------------------------- -->
+
+    <div data-role="page" id="newgroup">
+      <div data-role="header">
+        <img src="{!URLFOR($Resource.BGLogo)}" class="headerlogo" alt="BrightGen Logo" />
+        <h1>New Group</h1>
+        <a href="#main" class="ui-btn-right" data-icon="arrow-l">Back</a>
+      </div> <!--  /header -->
+      <div data-role="content">
+        <label for="newgroupname" style="font-weight:bold">Name</label>
+        <input type="text" name="text-basic" id="newgroupname" value=""/>
+        
+        <label style="font-weight:bold">Description</label>
+        <textArea id="newgroupdesc"></textArea>
+        <br/>
+        <hr/>
+        <a id="groupsavebutton" href="#" data-role="button">Save</a>
+      </div> <!-- /content -->
+    </div> <!-- /page -->
+      
+    <!-- ------------------------------------------- -->
+    <!--                 Error page                  -->
+    <!-- ------------------------------------------- -->
+
+    <div data-role="page" data-theme="d" id="error" data-rel="dialog" data-close-btn="none">
+      <div data-role="header">
+        <h1>Error</h1>
+      </div>
+            
+      <div id="errorcontent" data-role="content">
+        <div id="errormsg" style="color:red; font-weight: bold; text-align: center"></div>
+      
+        <a data-role="button" href="#" data-rel="back">Ok</a>
+      </div> <!-- /content -->
+    </div> <!-- /page -->
+  </body>
+</html>
+</apex:page>

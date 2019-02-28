@@ -1,0 +1,27 @@
+<apex:page controller="Disable_textbox" showheader="false" tabstyle="Account">
+<apex:form >
+<apex:panelgrid >
+<apex:actionfunction name="changeBoolCall" action="{!changeBool}">
+    <apex:pageblock id="pg" mode="maindetail">
+        <apex:pageblocksection >
+            <apex:pageblocksectionitem >
+                Select currency :
+            </apex:pageblocksectionitem>
+            <apex:pageblocksectionitem >
+               <apex:selectlist value="{!curency}" size="1" multiselect="false">
+                   <apex:selectoption itemlabel="--- None ---" itemvalue="none">
+                   <apex:selectoption itemlabel="Indian Rupee" itemvalue="inr">
+                   <apex:actionsupport event="onchange" action="{!changeBool}" rerender="pg">
+               </apex:actionsupport></apex:selectoption></apex:selectoption></apex:selectlist>
+            </apex:pageblocksectionitem>           
+            <apex:pageblocksectionitem >
+                Enter the amount:
+            </apex:pageblocksectionitem>     
+            <apex:pageblocksectionitem >
+               <apex:inputtext value="{!amount}" disabled="{!curencyBool}">
+            </apex:inputtext></apex:pageblocksectionitem>                  
+        </apex:pageblocksection>
+    </apex:pageblock>
+    </apex:actionfunction></apex:panelgrid>
+</apex:form>   
+</apex:page>

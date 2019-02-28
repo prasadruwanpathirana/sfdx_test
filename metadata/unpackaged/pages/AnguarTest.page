@@ -1,0 +1,41 @@
+<apex:page controller="AngularRemoteClass" showheader="false" sidebar="false" doctype="html-5.0" standardstylesheets="false">
+    <html lang="en">
+
+    <head title="MyApp">
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.min.js"></script>
+       
+        <script src="{!URLFOR($Resource.AngularForce)}/ngForce-master/jsSrc/ngForce.js"></script>
+        <script src="{!URLFOR($Resource.AngularForce)}/ngForce-master/jsSrc/subModules/ngForce-encodedUriQuery.js"></script>
+        <script src="{!URLFOR($Resource.AngularForce)}/ngForce-master/jsSrc/subModules/ngForce-multipart.js"></script>
+        <script src="{!URLFOR($Resource.AngularForce)}/ngForce-master/jsSrc/subModules/ngForce-remoteObjects.js"></script>
+        <script src="{!URLFOR($Resource.AngularForce)}/ngForce-master/jsSrc/subModules/ngForce-sfr.js"></script>
+        <script src="{!URLFOR($Resource.AngularForce)}/ngForce-master/jsSrc/subModules/ngForce-sfrAnalytics.js"></script>
+        <script src="{!URLFOR($Resource.AngularForce)}/ngForce-master/jsSrc/subModules/ngForce-sfrBackend.js"></script>
+        <script src="{!URLFOR($Resource.AngularForce)}/ngForce-master/jsSrc/subModules/ngForce-sfrfile.js"></script>
+        <script src="{!URLFOR($Resource.AngularForce)}/ngForce-master/jsSrc/subModules/ngForce-sfrquery.js"></script>
+        <script src="{!URLFOR($Resource.AngularForce)}/ngForce-master/jsSrc/subModules/ngForce-sfTemplate.js"></script>        
+        
+
+        <script type="text/javascript">
+          var SitePrefix="{!URLFOR($Resource.AngularApp)}/app/";
+          var test = '{!$User.FirstName}';
+
+        </script>
+    </head>
+    {!$User.FirstName}
+    <body ng-app="MyApp">
+
+        <ui-view></ui-view>
+        <!-- Add JS Files HERE -->
+        <script src="{!URLFOR($Resource.AngularApp)}/app/app.js"></script>
+        <script src="{!URLFOR($Resource.AngularApp)}/app/controllers/firstController.js"></script>
+        <script src="{!URLFOR($Resource.AngularApp)}/app/controllers/secondController.js"></script>
+        <script src="{!URLFOR($Resource.AngularApp)}/app/services/firstService.js"></script>
+        <script src="{!URLFOR($Resource.AngularApp)}/app/services/secondService.js"></script>
+        <script src="{!URLFOR($Resource.AngularApp)}/app/services/constantService.js"></script>
+        <script src="{!URLFOR($Resource.AngularApp)}/app/directives/directiveOne.js"></script>
+    </body>
+</html>
+
+</apex:page>

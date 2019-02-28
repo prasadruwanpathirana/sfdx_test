@@ -1,0 +1,40 @@
+<!-- <aura:component implements="forceCommunity:availableForAllPageTypes" access="global" >
+    <ltng:require scripts="{!$Resource.JQ}"  />   
+</aura:component> -->
+
+<aura:component implements="forceCommunity:availableForAllPageTypes" access="global" controller="ContactController">
+<style>
+#draggable_1 {
+cursor: move;
+}
+    
+</style>
+
+
+<aura:attribute name="isJqueryLoaded" type="Boolean" default="false" />
+    <aura:attribute name="contacts" type="Contact[]"/>
+    <aura:handler name="change" value="{!v.items}" action="{!c.itemsChange}"/>
+
+    <aura:attribute name="myBool" type="Boolean" default="true"/>
+
+    <!-- Handles the aura:valueChange event -->
+    <aura:handler name="change" value="{!v.myBool}" action="{!c.handleValueChange}"/>
+    <div  class="draggable" draggable="true" >
+    <ui:button label="change value" press="{!c.changeValue}"/>
+    </div>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <div  aura:id="testing">
+        test
+    </div>
+    <ul class="list-group">
+        <aura:iteration items="{!v.contacts}" var="contact">
+            <li id="draggable_1" class="list-group-item">
+                <a href="{! '#contact/' + contact.Id }">
+                    <p>{!contact.Name}</p>
+                    <p>{!contact.Phone}</p>
+                </a>
+            </li>
+        </aura:iteration>
+    </ul>
+
+</aura:component>

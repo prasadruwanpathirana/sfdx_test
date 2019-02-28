@@ -1,0 +1,59 @@
+<apex:page renderAs="pdf"  showHeader="false" sidebar="false" >
+ 
+<div id="container" width="500px" height="400px">
+    <svg class="svg-editor" id="myViewer" width="1400" height="1400" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" style="overflow:scroll;margin:0;">
+                <g id="base" name="base" class="svg-editor-layer"><title>base</title><line stroke="#000000" stroke-width="12" stroke-dasharray="none" class="line" pattern="none" transform="" y2="200" x2="400" y1="200" x1="200"></line><line stroke="#000000" stroke-width="12" stroke-dasharray="none" class="line" pattern="none" transform="" y2="200" x2="600" y1="200" x1="500"></line><line stroke="#000000" stroke-width="12" stroke-dasharray="none" class="line" pattern="none" transform="" y2="200" x2="1200" y1="200" x1="800"></line><line stroke="#000000" stroke-width="12" stroke-dasharray="none" class="line" pattern="none" transform="" y2="300" x2="1200" y1="200" x1="1200"></line><line stroke="#000000" stroke-width="12" stroke-dasharray="none" class="line" pattern="none" transform="" y2="705" x2="1200" y1="400" x1="1200"></line><line stroke="#000000" stroke-width="12" stroke-dasharray="none" class="line" pattern="none" transform="" y2="950" x2="1200" y1="795" x1="1200"></line><line stroke="#000000" stroke-width="12" stroke-dasharray="none" class="line" pattern="none" transform="" y2="1200" x2="1200" y1="1050" x1="1200"></line><line stroke="#000000" stroke-width="12" stroke-dasharray="none" class="line" pattern="none" transform="" y2="1200" x2="1050" y1="1200" x1="1200"></line><line stroke="#000000" stroke-width="12" stroke-dasharray="none" class="line" pattern="none" transform="" y2="1200" x2="750" y1="1200" x1="950"></line><line stroke="#000000" stroke-width="12" stroke-dasharray="none" class="line" pattern="none" transform="" y2="1200" x2="450" y1="1200" x1="650"></line><line stroke="#000000" stroke-width="12" stroke-dasharray="none" class="line" pattern="none" transform="" y2="1200" x2="200" y1="1200" x1="350"></line><line stroke="#000000" stroke-width="12" stroke-dasharray="none" class="line" pattern="none" transform="" y2="850" x2="200" y1="1200" x1="200"></line><line stroke="#000000" stroke-width="12" stroke-dasharray="none" class="line" pattern="none" transform="" y2="200" x2="200" y1="550" x1="200"></line><line stroke="#000000" stroke-width="12" stroke-dasharray="none" class="line" pattern="none" transform="" y2="550" x2="550" y1="200" x1="550"></line><line stroke="#000000" stroke-width="12" stroke-dasharray="none" class="line" pattern="none" transform="" y2="800" x2="550" y1="650" x1="550"></line><line stroke="#000000" stroke-width="12" stroke-dasharray="none" class="line" pattern="none" transform="" y2="1200" x2="550" y1="900" x1="550"></line><line stroke="#000000" stroke-width="12" stroke-dasharray="none" class="line" pattern="none" transform="" y2="700" x2="750" y1="700" x1="550"></line><line stroke="#000000" stroke-width="12" stroke-dasharray="none" class="line" pattern="none" transform="" y2="700" x2="1200" y1="700" x1="850"></line><line stroke="#000000" stroke-width="12" stroke-dasharray="none" class="line" pattern="none" transform="" y2="800" x2="850" y1="1200" x1="850"></line><line stroke="#000000" stroke-width="12" stroke-dasharray="none" class="line" pattern="none" transform="" y2="800" x2="900" y1="800" x1="850"></line><line stroke="#000000" stroke-width="12" stroke-dasharray="none" class="line" pattern="none" transform="" y2="800" x2="1200" y1="800" x1="1000"></line><svg transform="rotate(45,400,400)" class="pictogramme" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="400" y="400" width="64" height="64" viewBox="0 0 17.819 13.004" enable-background="new 0 0 17.819 13.004" xml:space="preserve">
+<path fill="red" d="M8.909,4.12c1.315,0,2.381,1.066,2.381,2.381s-1.066,2.381-2.381,2.381S6.528,7.816,6.528,6.501S7.594,4.12,8.909,4.12z
+     M15.209,0.203c-0.269-0.27-0.705-0.27-0.973,0c-0.27,0.268-0.27,0.703,0,0.973C15.658,2.6,16.442,4.489,16.442,6.5
+    c0,2.014-0.784,3.905-2.206,5.327c-0.27,0.27-0.27,0.706,0,0.975c0.134,0.134,0.31,0.201,0.487,0.201
+    c0.176,0,0.353-0.067,0.485-0.201c1.684-1.684,2.61-3.92,2.61-6.302C17.819,4.123,16.892,1.885,15.209,0.203z M1.376,6.5
+    c0-2.012,0.784-3.903,2.206-5.325c0.271-0.27,0.271-0.705,0-0.974c-0.268-0.269-0.705-0.269-0.973,0C0.926,1.884,0,4.122,0,6.5
+    c0,2.382,0.927,4.618,2.609,6.302c0.135,0.135,0.31,0.202,0.485,0.202c0.177,0,0.353-0.067,0.486-0.202
+    c0.271-0.268,0.271-0.703,0-0.974C2.16,10.406,1.376,8.515,1.376,6.5z M13.14,2.271c-0.269-0.269-0.704-0.269-0.973,0
+    c-0.269,0.27-0.269,0.705,0,0.975c0.87,0.869,1.348,2.025,1.348,3.255c0,1.231-0.479,2.388-1.348,3.259
+    c-0.269,0.27-0.269,0.705,0,0.973c0.134,0.137,0.311,0.202,0.486,0.202s0.353-0.065,0.486-0.202
+    c1.131-1.131,1.753-2.632,1.753-4.231S14.271,3.401,13.14,2.271z M5.651,2.271c-0.27-0.269-0.705-0.269-0.974,0
+    C3.548,3.401,2.925,4.902,2.925,6.5c0,1.6,0.623,3.103,1.753,4.231c0.134,0.137,0.312,0.203,0.486,0.203
+    c0.176,0,0.354-0.066,0.486-0.203c0.27-0.268,0.27-0.703,0-0.973C4.78,8.889,4.3,7.731,4.3,6.499c0-1.229,0.479-2.387,1.35-3.257
+    C5.921,2.974,5.921,2.54,5.651,2.271z"></path>
+</svg><rect fill-opacity="0.1" fill="#FFFFFF" stroke="red" stroke-width="3" stroke-dasharray="none" class="rect" pattern="none" transform="" y="195" x="400" height="10" width="100"></rect><rect fill-opacity="0.1" fill="#FFFFFF" stroke="red" stroke-width="3" stroke-dasharray="none" class="rect" pattern="none" transform="" y="300" x="1195" height="100" width="10"></rect><rect fill-opacity="0.1" fill="#FFFFFF" stroke="red" stroke-width="3" stroke-dasharray="none" class="rect" pattern="none" transform="" y="950" x="1195" height="100" width="10"></rect><rect fill-opacity="0.1" fill="#FFFFFF" stroke="red" stroke-width="3" stroke-dasharray="none" class="rect" pattern="none" transform="" y="1195" x="950" height="10" width="100"></rect><rect fill-opacity="0.1" fill="#FFFFFF" stroke="red" stroke-width="3" stroke-dasharray="none" class="rect" pattern="none" transform="" y="1195" x="350" height="10" width="100"></rect><rect fill-opacity="0.1" fill="#FFFFFF" stroke="red" stroke-width="3" stroke-dasharray="none" class="rect" pattern="none" transform="" y="550" x="195" height="300" width="10"></rect><text fill="#000000" class="text" style="color:black;font-weight:bold;" pattern="none" transform="rotate(45,1012,100)" y="100" x="1012"></text><ellipse fill-opacity="0.1" fill="#FFFFFF" stroke="#000000" stroke-width="5" stroke-dasharray="none" class="ellipse" pattern="none" transform="" cy="389" cx="851" ry="49" rx="147"></ellipse><path stroke="red" fill-opacity="0.1" fill="yellow" stroke-width="1" d="m700,200 l-100,0 l0,100 q100 0,100 -100 z" pattern="none" transform="" y="200" x="700" class="path door"></path><path stroke="red" fill-opacity="0.1" fill="yellow" stroke-width="1" d="m700,200 l100,0 l0,100 q-100 0,-100 -100 z" pattern="none" transform="" y="200" x="700" class="path door"></path><path stroke="red" fill-opacity="0.1" fill="yellow" stroke-width="1" d="m1200,795 l0,-90 l-90,0 q0 90,90 90 z" pattern="none" transform="" y="795" x="1200" class="path door"></path><path stroke="red" fill-opacity="0.1" fill="yellow" stroke-width="1" d="m650,1200 l100,0 l0,-100 q-100 0,-100 100 z" pattern="none" transform="" y="1200" x="650" class="path door"></path><path stroke="red" fill-opacity="0.1" fill="yellow" stroke-width="1" d="m550,550 l0,100 l100,0 q0 -100,-100 -100 z" pattern="none" transform="" y="550" x="550" class="path door"></path><path stroke="red" fill-opacity="0.1" fill="yellow" stroke-width="1" d="m550,800 l0,100 l-100,0 q0 -100,100 -100 z" pattern="none" transform="" y="800" x="550" class="path door"></path><path stroke="red" fill-opacity="0.1" fill="yellow" stroke-width="1" d="m750,700 l100,0 l0,-100 q-100 0,-100 100 z" pattern="none" transform="" y="700" x="750" class="path door"></path><path stroke="red" fill-opacity="0.1" fill="yellow" stroke-width="1" d="m900,800 l100,0 l0,100 q-100 0,-100 -100 z" pattern="none" transform="" y="800" x="900" class="path door"></path><path fill-opacity="0.1" fill="#FFFFFF" stroke="#000000" stroke-width="5" stroke-dasharray="none" d="m107,601 q 0 103,267 103 " pattern="none" transform="" y="601" x="107" class="path roundwall"></path></g></svg>
+</div>
+<label id="button">
+    CONVERT TO PNG
+</label>
+<canvas id="canvas" width="800" height="600">
+</canvas>
+
+ 
+<script>
+
+var svgText = document.getElementById("myViewer").outerHTML;
+var myCanvas = document.getElementById("canvas");
+var ctxt = myCanvas.getContext("2d");
+
+function drawInlineSVG(ctx, rawSVG, callback) {
+
+    var svg = new Blob([rawSVG], {type:"image/svg+xml;charset=utf-8"}),
+        domURL = self.URL || self.webkitURL || self,
+        url = domURL.createObjectURL(svg),
+        img = new Image;
+    
+    img.onload = function () {
+        ctx.drawImage(this, 0, 0);     
+        domURL.revokeObjectURL(url);
+        callback(this);
+    };
+    
+    img.src = url;
+}
+
+// usage:
+drawInlineSVG(ctxt, svgText, function() {
+    console.log(canvas.toDataURL());  // -> PNG
+    //alert("see console for output...");
+});
+
+
+</script>
+ 
+</apex:page>

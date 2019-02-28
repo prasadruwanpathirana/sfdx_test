@@ -1,0 +1,18 @@
+<aura:component implements="force:appHostable" >
+	<h1>Hello Lightning Component!</h1>
+    <div class="container">
+        <h1>Another h1 tag</h1>
+    	<div class="red"> I'm Red</div>
+        <div class="blue"> I'm Blue</div>
+        <div class="green"> I'm Green</div>
+    </div>
+    <aura:attribute name="num1" type="Integer" default="1" />
+    <aura:attribute name="num2" type="Integer" default="2" />
+    <aura:attribute name="sum" type="Integer" />
+    {!v.num1} + {!v.num2} = {!v.sum}
+    
+    <ui:button label="Add Numbers" press="{!c.add}" />
+    
+    Observe! Components within components!
+    
+</aura:component>

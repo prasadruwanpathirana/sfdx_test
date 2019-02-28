@@ -1,0 +1,16 @@
+<apex:page standardController="Contact" extensions="WrapperExampleController" id="testId">
+<style>
+.democlass {
+    display: none;
+}
+</style>
+
+<script>
+document.getElementsByTagName("testId")[0].setAttribute("class", "democlass ");
+
+</script>
+
+    <apex:form >
+
+    </apex:form>
+</apex:page>

@@ -1,0 +1,62 @@
+<apex:page standardController="Account" showChat="false" showHeader="false" sidebar="false">
+
+<script>
+
+
+
+function test(){
+
+alert('test');
+}
+
+function doSomethingJS()
+{
+    // Create work order
+    var Opportunity= new SObjectModel.Opportunity();
+    Opportunity.set('Name','Hitchhikers.com');
+    Opportunity.set('StageName', 'Prospecting');
+    Opportunity.set('Closedate', '2014-09-15');
+    Opportunity.create(function(error, result, event)
+        {
+            // Success?
+            if(error == null)
+            {
+                // Create work order line item
+              //  var workOrderLineItem = new SObjectModel.WorkOrderLineItem__c();
+              //  workOrderLineItem.set('Description__c', 'Answering the question');
+              //  workOrderLineItem.set('Hours__c', answer);
+              //  workOrderLineItem.set('WorkOrder__c', result[0]);
+              //  workOrderLineItem.create(function(error, result, event)
+              //      {
+              //          // Errors?
+              //          if(error!=null)
+              //              alert(error);
+              //          else
+              //              alert('Success');
+              //      } );
+             //   return;
+             
+             alert('success');
+            }
+            // Display error
+           // alert(error);
+         return;
+        } );
+        
+        
+        alert('test');
+}
+
+</script>
+
+<body onload='doSomethingJS()'>
+<apex:remoteObjects >
+    <apex:remoteObjectModel name="Opportunity" fields="Id,Name,StageName,Closedate"/>
+  <!--  <apex:remoteObjectModel name="WorkOrderLineItem__c" fields="Id,Name,Description__c,Hours__c,WorkOrder__c"/> -->
+</apex:remoteObjects>
+  <!-- Begin Default Content REMOVE THIS -->
+  <h1>Congratulations</h1>
+  This is your new Page
+  <!-- End Default Content REMOVE THIS -->
+  </body>
+</apex:page>

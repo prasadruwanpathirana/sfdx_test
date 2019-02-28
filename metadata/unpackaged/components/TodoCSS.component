@@ -1,0 +1,16 @@
+<apex:component >
+  <style>
+	.headerlogo
+	{
+    	margin:5px;
+    	float: left; 
+    	display: inline;
+    	border-top-left-radius: 5px; 
+    	border-top-right-radius: 5px;
+        border-bottom-left-radius: 5px;
+    	border-bottom-right-radius: 5px;
+    	height:30px;
+    	width:30px;
+	}
+  </style>
+</apex:component>
